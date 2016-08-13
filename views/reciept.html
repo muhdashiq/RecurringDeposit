@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Recurring Deposit Tracker</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+      
+    </script>
+    
+  </head>
+  <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="/"">Home</a></li>
+            <li role="presentation"><a href="/dashboard">Dash</a></li>
+            <li role="presentation" class="active"><a href="/reciept">Reciept</a></li>
+            <li role="presentation"><a href="/reports">Reports</a></li>
+            <li role="presentation"><a href="/settings">Settings</a></li>
+            <li role="presentation"><a href="/logout">logout</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Recurring Deposit Tracker<small><span class="badge">beta</span></small></h3>
+      </div>
+      <div class="row marketing" id="home">
+        <div class="col-lg-6">
+          <form >
+            <h4>Fetch Details</h4><hr/>
+            <h5>Mobile number of customer </h5>
+            <input type ="text" name="mobilenumber" id="mobilenumber" class="form-control" placeholder="(+91) 9867543212" />
+            <p>You can give the mobile number of the customer, which is given during the account registration.</p>
+            <h4>OR</h4>
+            <h5>Account number</h5>
+            <input type ="text" name="accnumber" id="accnumber" class="form-control" placeholder="Account number" />
+            <p>Here customer can pass his/her account number he have recieved at the time of account registartion.</p>
+            <input type ="submit" value="Search" class="form-control"/>  
+            <p>If account detils is found durig the search, detiils will be displayed below.</p>
+          </form>            
+        </div>
+        <div class="col-lg-6">
+          <form>
+            <h4>Reciept Book</h4><hr/>
+            <h5>Mobile Number</h5>
+            <input type ="text" name="mobilenumber" id="mobilenumber" class="form-control" placeholder="(+91) 9867543212" disabled required="" />
+            <p>Mobile number given during the account registration and SMS will be send to this number</p>
+            <h5>Name</h5>
+            <input type ="text" name="name" id="name" class="form-control" placeholder="Mr./Mrs. Perfect" disabled required="" />
+            <p>Name of the customer given dusting the registration and this can be used for official purpose</p>
+            <h5>Account Number</h5>
+            <input type="text" name="accountnumber" id="accountnumber" class="form-control" placeholder="Account" disabled required="">
+            <p>Account mnumber stand for recurring deposite account number. Its unique and should be a valid account number</p>
+            <h5>Amount</h5>
+            <input type ="text" name="amount" id="amount" class="form-control" placeholder="Rs, 1000" required="" />
+            <p>Amount is paied at the counter.</p>
+            <h5>Notes</h5>
+            <input type="text" name="notes" id="notes" class="form-control" placeholder="C/O Details or any other special mention" >
+            <p>Account mnumber stand for recurring deposite account number. Its unique and should be a valid account number</p>
+            
+            <input type ="submit" value="Send Reciept" class="form-control"/>  
+            <p>Please confirm the data before sending the reciept, it will be very hard to rollback.</p>
+
+          </form>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="container">
+          <p class="text-muted">Developed and Maintained by <a href="http://addin.in">addin.in</a> | Contact : mail@addin.in </p>
+        </div>
+      </footer>
+    </div> <!-- /container -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

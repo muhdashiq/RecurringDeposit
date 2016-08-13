@@ -1,0 +1,26 @@
+[
+      {
+            "name" : "Ashiq",
+            "id" : 1,
+            "username" :  "ashiqm",
+            "password" : "azim"
+      },
+      {
+            "name" : "Safwan",
+            "id" : 1,
+            "username" : "safu",
+            "password" : "noor"
+      },
+      {
+            "name" : "Razak",
+            "id" : 1,
+            "username": "rasak",
+            "password" : "mahathma"
+      },
+      {
+            "name" : "Waseem",
+            "id" : 1,
+            "username": "wazeem",
+            "password" : "kphouse"
+      }
+]

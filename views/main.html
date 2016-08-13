@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Ebook Title Logic(Version 2)</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        function generateTitle(){
+            
+            var title = document.forms["inputForm"]["title"].value;
+            var subtitle= document.forms["inputForm"]["subtitle"].value;
+            var seriestitle= document.forms["inputForm"]["seriestitle"].value;
+            var seriesnumber= document.forms["inputForm"]["seriesnumber"].value;
+            var marketplace= document.forms["inputForm"]["marketplace"].value;
+            var language= document.forms["inputForm"]["language"].value;
+            var languagePart = "[" + language + "]";
+
+            //Checking seriestile is part of title.
+            if(title == subtitle )
+            {
+              subtitle = "";
+            }  
+            else
+            {
+              if(subtitle == ""){
+
+              }
+              else{
+                subtitle = ":" + subtitle;  
+              }  
+              
+            }
+             
+            //setting language part and default identifier  
+            var defaultIdentifier = "";
+            if(marketplace == 1){
+                
+                if(language == "English")
+                    language = "";
+                else
+                    language = languagePart;
+
+                defaultIdentifier = "Book";
+            }
+            if(marketplace == 3){
+                
+                if(language == "English")
+                    language = "";
+                else
+                     language = languagePart;;
+
+                defaultIdentifier = "Book";
+            }
+            if(marketplace == 4){
+                
+                if(language == "German")
+                    language = "";
+                else
+                     language = languagePart;;
+
+                defaultIdentifier = "";
+            }
+            if(marketplace == 5){
+                
+                if(language == "French")
+                    language = "";
+                else
+                     language = languagePart;;
+
+                defaultIdentifier = "t.";
+            }
+            if(marketplace == 6){
+                
+                if(language == "Japanese")
+                    language = "";
+                else
+                     language = languagePart;;
+
+                defaultIdentifier = "";
+            }
+            if(marketplace == 7){
+                
+                if(language == "English")
+                    language = "";
+                else
+                     language = languagePart;;
+
+                defaultIdentifier = "Book";
+            }
+            if(marketplace == 44551){
+                
+                if(language == "Spanish")
+                    language = "";
+                else
+                     language = languagePart;;
+
+                defaultIdentifier = "nº";
+            }
+            if(marketplace == 44571){
+                
+                if(language == "English")
+                    language = "";
+                else
+                     language = languagePart;;
+
+                defaultIdentifier = "Book";
+            }
+            if(marketplace == 3240){
+                
+                if(language == "Chinese")
+                    language = "";
+                else
+                     language = languagePart;;
+
+                defaultIdentifier = "";
+            }
+            if(marketplace == 526970){
+                
+                if(language == "Portuguese")
+                    language = "";
+                else
+                     language = languagePart;;
+
+                defaultIdentifier = "Livro";
+            }
+            if(marketplace == 771770){
+                
+                if(language == "English")
+                    language = "";
+                else
+                     language = languagePart;;
+
+                defaultIdentifier = "nº";
+            }
+            if(marketplace == 111172){
+                
+                if(language == "English")
+                    language = "";
+                else
+                     language = languagePart;;
+
+                defaultIdentifier = "Book";
+            }
+            // if(marketplace == 111162)
+            //     defaultIdentifier = "";
+            // if(marketplace == 328451)
+            //     defaultIdentifier = "";
+            /*else{
+                 language = languagePart;;
+
+                defaultIdentifier = "Book";
+            }*/
+
+            //Checking series title is a part of constructed title or not
+            titleSubtitle = title + subtitle;
+            if(titleSubtitle.includes(seriestitle)){
+              seriestitle = "";
+              //document.getElementById("series").innerHTML = "TRUE";
+            } 
+            else{
+              //document.getElementById("series").innerHTML = "FALSE";
+            }
+
+            // If series title is null, omiting the rest part.
+            if(seriestitle == ""){
+
+            }
+            else{ 
+              if(seriesnumber == ""){
+
+              }
+              else{
+                // appending series number
+                updatedDefaultIdentifier =  " " + defaultIdentifier + " " + seriesnumber; 
+              }
+
+              // Checking for series number be a part of series generated title:subtitle logic.
+              if(titleSubtitle.includes(seriesnumber))
+              {
+                updatedDefaultIdentifier = "";
+              } 
+              seriestitle = "(" + seriestitle + updatedDefaultIdentifier + ")"; 
+            }
+
+            //document.getElementById("result").innerHTML= "Ashiq";
+            document.getElementById("result").innerHTML= title + subtitle + seriestitle + language ;
+
+            //document.getElementById("console").innerHTML="<hr><br/>Marketplace:"+marketplace+"<br/>Language:"+language+"<br/>Title:"+title+"<br/>Subtitle:"+subtitle+"<br/>Series title:"+seriestitle+"<br/>Series number:"+seriesnumber;
+        }
+    </script>
+  </head>
+  <body>
+  <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <!--<li role="presentation" class="active"><a href="#">Genarator</a></li>-->
+          </ul>
+        </nav>
+        <h3 class="text-muted">Ebook title generator (v2)<small><span class="badge">beta</span></small></h3>
+      </div>
+      <form name="inputForm" onmousemove="generateTitle()">
+        <div class="row marketing">
+          <div class="col-lg-6">
+            <div class="jumbotron" style="background-color:white">
+              <h1 id="result">Ebook Title</h1>
+              <p class="lead">This is a title generation script designed and developed by DCCP SE team. We rewritten logic in javascript from <a href="https://w.amazon.com/index.php/DigitalPublishing/Display_Title_For_EBook#Display_Title_Logic.28Version_2.29_-_Applicable_to_whiltelisted_managed_and_KDP_titles_post_2014">wikipage</a>. If anything is not working fine, please do cut a ticket to Digipub SE team.</p>
+              <p><a class="btn btn-lg btn-default" href="#" role="button" onclick="generateTitle()">Get title!</a></p>
+            </div>            
+          </div>
+          <div class="col-lg-6">
+            <h4>Marketplace</h4>
+            <select name="marketplace" class="form-control">
+               <option value="">--Select--</option>
+               <option value="1">US</option>
+               <option value="3">CO.UK</option>
+               <option value="4">DE</option>
+               <option value="5">FR</option>
+               <option value="6">CO.JP</option>
+               <option value="7">CA</option>
+               <option value="44551">ES</option>
+               <option value="44571">IN</option>
+               <option value="3240">CN</option>
+               <option value="526970">BR</option>
+               <option value="771770">MX</option>
+               <option value="111172">COM.AU</option>
+               <option value="111162">RU</option>
+               <option value="328451">NL</option>
+            </select>
+            <p>Please do select marketplace from dropdown list where the item is published.</p>
+
+            <h4>Language</h4>
+            <select name="language" class="form-control">
+               <option value="">--Select--</option>
+               <option value="English">English</option>
+               <option value="German">German</option>
+               <option value="French">French</option>
+               <option value="Spanish">Spanish</option>
+               <option value="Italian">Italian</option>
+               <option value="Portuguese">Portuguese</option>
+               <option value="Japanese">Japanese</option>
+               <option value="Chinese">Chinese</option>
+            </select>
+            <p>Language is mandatory for genrating title.</p>
+
+            <h4>Series number</h4>
+            <input type ="text" name="seriesnumber" id="seriesnumber" class="form-control" placeholder="Series number like 1, 2, 3 ..." />
+            <p>Some case series number can be the volume nunber or edition number.</p>
+            <h4>Title</h4>
+            <input type ="text" name="title" id="title" class="form-control" placeholder="I would like to know as" />
+            <p>This is the main title from the book.</p>
+
+            <h4>Sub title</h4>
+            <input type ="text" name="subtitle" id="subtitle" class="form-control" placeholder="This is my alias too" />
+            <p>Sub title is come under itle on cover image.</p>
+
+            <h4>Series title</h4>
+            <input type ="text" name="seriestitle" id="seriestitle" class="form-control" placeholder="I am part of this gang" />
+            <p>The is the title which helps the customers to understand this book is part of this series.</p>
+          </div>
+        </div>
+      </form>
+
+      <footer class="footer">
+        <hr/>
+        <p>DigiPub SE team. Last modified on Aug 2, 2016 0:0PST | mail us: dccp-se-chennai@amazon.com</p>
+      </footer>
+
+    </div> <!-- /container -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
