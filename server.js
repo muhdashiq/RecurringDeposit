@@ -2,24 +2,44 @@
 // load the things we need
 var express = require('express');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+
 var fs = require('fs');
 var jsonFile = require('jsonfile');
 
+//MongoDB Config
+var mongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+var ObjectId = require('mongodb').ObjectID;
+
 //Setting the express variable.
 var app = express();
+app.use(session({secret: 'RecurringDeposite-WebApplication'}));
+//app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({extended: true}));
 
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-//public file
+//session variable
+var sess;
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
 // use res.render to load up an ejs view file
 
+// Mongo DB Connection
+var url = 'mongodb://localhost:27017/RecurringDeposite';
+mongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log("Connected to database server");
+  db.close();
+});
+
 // index page 
 app.get('/', function(req, res) {
+	
 	writeLog(req.connection.remoteAddress + "Home/login index hited.");
     res.sendFile(writeView("index"));
 });
@@ -82,19 +102,43 @@ app.get('/reciept',function(req,res){
 });
 
 app.get('/reports', function(req,res){
+
+	var accounts = [];
+
+	var findAccounts = function(db, callback) {
+		var accounts;
+		var cursor =db.collection('accounts').find( ).toArray(function (err,result){
+				if (err) {
+					console.log(err);
+				} else if (result.length) {
+	
+					accounts = result;
+					var data = fs.readFileSync( __dirname + "/" + "users.json", 'utf8');//, function(err,data,username,password){
+					admins = JSON.parse( data );
+
+					var recieptData = fs.readFileSync( __dirname + "/" + "reciepts.json", 'utf8');//, function(err,data,username,password){
+					reciepts = JSON.parse( recieptData );
+
+					console.log("ADMINS"+admins);
+					console.log("ACCOUNTS"+accounts);
+
+				    res.render('reports',{admins:admins,accounts:accounts,reciepts:reciepts});
+				} else {
+					console.log('No document(s) found with defined "find" criteria!');
+				}
+		});
+		console.log("Verifing"+accounts);
+	}
+
+
+	mongoClient.connect(url, function(err, db) {
+		assert.equal(null, err);
+		findAccounts(db, function() {
+			db.close();
+		});
+	});
+
 	writeLog(req.connection.remoteAddress + "Reports index hited.");
-	var data = fs.readFileSync( __dirname + "/" + "users.json", 'utf8');//, function(err,data,username,password){
-	admins = JSON.parse( data );
-
-	var accData = fs.readFileSync( __dirname + "/" + "accounts.json", 'utf8');//, function(err,data,username,password){
-	accounts = JSON.parse( accData );
-
-	var recieptData = fs.readFileSync( __dirname + "/" + "reciepts.json", 'utf8');//, function(err,data,username,password){
-	reciepts = JSON.parse( recieptData );
-   // admins = [{name : 'ashiq'},{name:'safwan'},{name:'rasak'}];
-	console.log(admins);
-    //res.sendFile(writeView("reports"));
-    res.render('reports',{admins:admins,accounts:accounts,reciepts:reciepts});
 });
 
 app.get('/settings', function(req,res){
@@ -122,8 +166,7 @@ app.post('/createAccount',urlencodedParser,function(req,res){
     var bloodgroup = req.body.bloodgroup;
     var email = req.body.emailid;
 
-    var newAccount = [];
-    newAccount.push({
+    var newAccount = {
     	name:name,
     	mobile:mobile,
     	nickname:nickname,
@@ -132,14 +175,28 @@ app.post('/createAccount',urlencodedParser,function(req,res){
     	dateofbirth:dateofbirth,
     	bloodgroup:bloodgroup,
     	email:email
-    });
+    }
 
-   // data = jsonFile.readFileSync("accounts.json");
-   // if(data == undefined || data == "[]"){
-   // 		data = [];
-   // }
-   // accountDatas = JSON.parse( data );
-   // accountDatas.push(newAccount);
+    newAccount = JSON.stringify(newAccount);
+    var json = JSON.parse(newAccount)
+
+    console.log("URL" + url +"/" + json);
+
+   	var insertDocument = function(db, callback) {
+	   	db.collection('accounts').insertOne( json, function(err, result) {
+	    	assert.equal(err, null);
+	    	console.log("Inserted a document into the restaurants collection.");
+	    	callback();
+	  	});
+	};
+
+	mongoClient.connect(url, function(err, db) {
+		assert.equal(null, err);
+		insertDocument(db, function() {
+	  		db.close();
+		});
+	});
+
    jsonFile.writeFileSync("accounts.json", newAccount);
 
 	writeLog(req.connection.remoteAddress + "createAccount hited. " + newAccount);
@@ -173,31 +230,8 @@ function writeView(filename){
 	return __dirname + "/views/" + filename+".html";
 }
 
-//Database access
-function DB(databasename,operation,data){
-	
-	if(databasename != ""){
-		if(operation == "read"){
 
-		}
 
-		else if(operation == "create"){
-
-		}
-
-		else if(operation == "edit"){
-
-		}
-
-		else if(operation == "delete"){
-
-		}
-	}
-	else
-	{
-		writeLog("Database operation need 'databasename', 'operation' and 'data' as a mandatory atrributes");
-	}
-}
 
 
 

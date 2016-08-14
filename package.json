@@ -1,0 +1,33 @@
+{
+  "name": "RecurringDeposit",
+  "version": "0.0.0",
+  "description": "Recurring Deposite Tracker",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "~1.15.2",
+    "cookie-parser": "~1.4.3",
+    "ejs": "~2.5.1",
+    "express": "~4.14.0",
+    "jsonfile": "~2.3.1",
+    "multer": "~1.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/muhdashiq/RecurringDeposit"
+  },
+  "keywords": [
+    "recurring",
+    "deposite",
+    "addin"
+  ],
+  "author": "Muhammed Ashiq",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/muhdashiq/RecurringDeposit/issues"
+  }
+}
